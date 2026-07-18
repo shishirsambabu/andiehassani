@@ -1,4 +1,13 @@
-export const SITE_URL = "https://andie-hassani-coaching.info15432.chatgpt.site";
+const productionHost =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.VERCEL_PROJECT_PRODUCTION_URL ??
+  process.env.VERCEL_URL;
+
+export const SITE_URL = productionHost
+  ? productionHost.startsWith("http")
+    ? productionHost
+    : `https://${productionHost}`
+  : "http://localhost:3000";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/andiehassani/";
 export const DISCOVERY_URL = "https://lnkd.in/eqRc4K86";
 

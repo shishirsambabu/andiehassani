@@ -86,8 +86,8 @@ export default function ApproachPage() {
       </section>
 
       <section className="method-quote">
-        <p>"Alignment means little without action. Strategy means little without alignment."</p>
-        <span>ANDIE'S COACHING PHILOSOPHY</span>
+        <p>“Alignment means little without action. Strategy means little without alignment.”</p>
+        <span>ANDIE’S COACHING PHILOSOPHY</span>
       </section>
 
       <section className="inline-cta">

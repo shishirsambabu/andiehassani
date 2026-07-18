@@ -46,9 +46,9 @@ export default function AboutPage() {
         </div>
         <div>
           <p className="kicker">Why this work</p>
-          <h2>"I wanted the freedom to build something that truly mattered."</h2>
+          <h2>“I wanted the freedom to build something that truly mattered.”</h2>
           <p className="lead">
-            For years, Andie found herself building other people's visions while the
+            For years, Andie found herself building other people’s visions while the
             desire to create her own kept getting louder.
           </p>
           <p>

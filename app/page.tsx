@@ -121,8 +121,8 @@ export default function Home() {
         <p className="section-index">CLIENT PERSPECTIVE / 02</p>
         <blockquote>
           <p>
-            "After just one session, I felt more relieved, energised, motivated
-            and - most importantly - focused."
+            “After just one session, I felt more relieved, energised, motivated
+            and — most importantly — focused.”
           </p>
           <footer>
             <strong>VERONIKA BUBENICKOVA</strong>
