@@ -7,15 +7,26 @@ export const SITE_URL = productionHost
   ? productionHost.startsWith("http")
     ? productionHost
     : `https://${productionHost}`
-  : "http://localhost:3000";
+  : process.env.NODE_ENV === "production"
+    ? "https://andiehassani.vercel.app"
+    : "http://localhost:3000";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/andiehassani/";
 export const DISCOVERY_URL = "https://lnkd.in/eqRc4K86";
 
 export const primaryNav = [
-  { index: "01", label: "Story", href: "/about" },
+  { index: "01", label: "Start here", href: "/start-here" },
   { index: "02", label: "Coaching", href: "/coaching" },
   { index: "03", label: "Method", href: "/approach" },
-  { index: "04", label: "Insights", href: "/insights" },
+  { index: "04", label: "Results", href: "/results" },
+  { index: "05", label: "Field notes", href: "/insights" },
+];
+
+export const utilityNav = [
+  { label: "About Andie", href: "/about" },
+  { label: "Decision tools", href: "/tools" },
+  { label: "Clarity audit", href: "/clarity-audit" },
+  { label: "Focus planner", href: "/tools/focus-planner" },
+  { label: "Start a conversation", href: "/contact" },
 ];
 
 export const serviceLines = [

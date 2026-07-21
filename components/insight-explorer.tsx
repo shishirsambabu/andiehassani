@@ -62,7 +62,7 @@ export function InsightExplorer({ items }: { items: Insight[] }) {
               <strong>{item.title}</strong>
               <small>{item.excerpt}</small>
             </span>
-            <b aria-hidden="true">NE</b>
+            <b aria-hidden="true">↗</b>
           </Link>
         ))}
       </div>

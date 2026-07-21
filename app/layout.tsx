@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { ExperienceLayer } from "@/components/experience-layer";
+import { ScrollNeedle } from "@/components/scroll-needle";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
+import "./studio.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -22,6 +25,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Andie Hassani", url: SITE_URL }],
   creator: "Andie Hassani",
+  category: "Business coaching",
   alternates: { canonical: "/" },
   icons: { icon: "/favicon.png", shortcut: "/favicon.png" },
   openGraph: {
@@ -31,13 +35,13 @@ export const metadata: Metadata = {
     locale: "en_GB",
     url: SITE_URL,
     siteName: "Andie Hassani Business Coaching",
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Andie Hassani Business Coaching" }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Find the red thread — Andie Hassani Business Coaching" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Andie Hassani | Business Coaching",
     description: "Clarity. Alignment. Momentum.",
-    images: ["/og.png"],
+    images: ["/opengraph-image"],
   },
 };
 
@@ -62,17 +66,24 @@ const structuredData = {
       worksFor: { "@id": SITE_URL + "/#business" },
     },
     {
-      "@type": ["ProfessionalService", "Organization"],
+      "@type": "Organization",
       "@id": SITE_URL + "/#business",
       name: "Andie Hassani Business Coaching",
       url: SITE_URL,
       logo: SITE_URL + "/favicon.png",
       image: SITE_URL + "/andie-hassani.jpg",
       areaServed: "Worldwide",
-      address: { "@type": "PostalAddress", addressLocality: "Dubai", addressCountry: "AE" },
       founder: { "@id": SITE_URL + "/#andie" },
       description:
         "Business coaching for women entrepreneurs and aspiring founders, combining strategy, alignment and focused action.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": SITE_URL + "/#website",
+      url: SITE_URL,
+      name: "Andie Hassani Business Coaching",
+      publisher: { "@id": SITE_URL + "/#business" },
+      inLanguage: "en-GB",
     },
   ],
 };
@@ -82,6 +93,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
+        <ExperienceLayer />
+        <ScrollNeedle />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <SiteFooter />

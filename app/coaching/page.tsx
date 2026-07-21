@@ -1,25 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
+import { coachingPaths } from "@/lib/coaching-paths";
 import { DISCOVERY_URL, faqs, serviceLines } from "@/lib/site";
-import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Business Coaching",
   description:
     "Business coaching for women entrepreneurs, aspiring founders and business owners navigating growth, uncertainty or a strategic reset.",
   alternates: { canonical: "/coaching" },
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: { "@type": "Answer", text: item.answer },
-  })),
-  url: SITE_URL + "/coaching",
 };
 
 export default function CoachingPage() {
@@ -40,6 +29,17 @@ export default function CoachingPage() {
           <article><span>IDEA</span><h2>You know you want to build something, but the shape is still unclear.</h2><p>Move from scattered possibility to a focused problem, audience and first offer.</p></article>
           <article><span>RESET</span><h2>The business exists, but the direction no longer feels clean.</h2><p>Step out of reaction, review what the evidence is saying and choose what deserves to continue.</p></article>
           <article><span>GROWTH</span><h2>Opportunity is increasing faster than clarity or capacity.</h2><p>Build the decision rhythm, priorities and boundaries that let growth remain sustainable.</p></article>
+        </div>
+      </section>
+
+      <section className="coaching-pathways" data-reveal>
+        <header><p className="eyebrow">Choose the closest starting point</p><h2>Three stages.<br /><i>Three different questions.</i></h2></header>
+        <div>
+          {coachingPaths.map((path) => (
+            <Link href={`/coaching/${path.slug}`} data-spotlight data-tilt key={path.slug}>
+              <span>{path.index}</span><small>{path.stage}</small><h3>{path.title}</h3><p>{path.description}</p><strong>Explore this pathway <b>↗</b></strong>
+            </Link>
+          ))}
         </div>
       </section>
 
@@ -95,7 +95,7 @@ export default function CoachingPage() {
           <p className="kicker">Start here</p>
           <h2>Not sure what kind of support you need?</h2>
           <p>The clarity audit identifies the lever that may make the biggest difference right now.</p>
-          <Link className="button button-dark" href="/clarity-audit">Take the 3-minute audit <span aria-hidden="true">NE</span></Link>
+          <Link className="button button-dark" href="/clarity-audit">Take the 3-minute audit <span aria-hidden="true">↗</span></Link>
         </div>
       </section>
 
@@ -114,10 +114,9 @@ export default function CoachingPage() {
       <section className="inline-cta inline-cta-red">
         <p className="kicker kicker-on-dark">Your next move does not need to be dramatic</p>
         <h2>It needs to be true, useful and possible.</h2>
-        <a className="button button-light" href={DISCOVERY_URL} target="_blank" rel="noreferrer">Book a discovery call <span aria-hidden="true">NE</span></a>
+        <a className="button button-light" href={DISCOVERY_URL} target="_blank" rel="noreferrer">Book a discovery call <span aria-hidden="true">↗</span></a>
       </section>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
     </>
   );
 }

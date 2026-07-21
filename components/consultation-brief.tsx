@@ -70,7 +70,7 @@ export function ConsultationBrief() {
             rows={5}
           />
         </label>
-        <button className="button button-red" type="submit">Prepare my brief <span aria-hidden="true">NE</span></button>
+        <button className="button button-red" type="submit">Prepare my brief <span aria-hidden="true">↗</span></button>
         <small className="privacy-note">Nothing entered here is stored or sent. This tool prepares your thoughts locally.</small>
       </form>
 

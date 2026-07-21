@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Business coaching for women entrepreneurs and aspiring founders.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f5efe7",
-    theme_color: "#c51727",
+    background_color: "#f6f0e8",
+    theme_color: "#c5162a",
     icons: [{ src: "/favicon.png", sizes: "64x64", type: "image/png" }],
   };
 }

@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { PageIntro } from "@/components/page-intro";
 import { DISCOVERY_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
+import { mediaNotes } from "@/lib/proof";
 
 export const metadata: Metadata = {
   title: "About",
@@ -28,6 +31,16 @@ const chapters = [
   },
 ];
 
+const profileSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/about#profile`,
+  url: `${SITE_URL}/about`,
+  mainEntity: { "@id": `${SITE_URL}/#andie` },
+  about: { "@id": `${SITE_URL}/#andie` },
+  inLanguage: "en-GB",
+};
+
 export default function AboutPage() {
   return (
     <>
@@ -41,7 +54,7 @@ export default function AboutPage() {
 
       <section className="about-feature">
         <div className="about-feature-image">
-          <img src="/andie-hassani.jpg" alt="Andie Hassani" />
+          <Image src="/andie-hassani.jpg" alt="Andie Hassani" width={1050} height={1050} sizes="(max-width: 800px) 100vw, 48vw" />
           <span>AH / BUSINESS COACHING</span>
         </div>
         <div>
@@ -89,14 +102,20 @@ export default function AboutPage() {
         <div><small>PERSPECTIVE</small><strong>03 regions</strong><span>Europe, Middle East and United Kingdom</span></div>
       </section>
 
+      <section className="press-rail" data-reveal>
+        <div><p className="eyebrow">In conversation</p><h2>Public ideas, not hidden claims.</h2></div>
+        {mediaNotes.map((item) => <a href={item.href} target="_blank" rel="noreferrer" data-spotlight data-tilt key={item.href}><span>{item.date}</span><small>{item.publisher}</small><strong>{item.label}</strong><b>↗</b></a>)}
+      </section>
+
       <section className="inline-cta">
         <p className="kicker">The work begins with a conversation</p>
         <h2>Bring the question you have not been able to resolve alone.</h2>
         <div>
-          <a className="button button-red" href={DISCOVERY_URL} target="_blank" rel="noreferrer">Book a discovery call <span aria-hidden="true">NE</span></a>
+          <a className="button button-red" href={DISCOVERY_URL} target="_blank" rel="noreferrer">Book a discovery call <span aria-hidden="true">↗</span></a>
           <Link className="text-link" href="/coaching">See how coaching works</Link>
         </div>
       </section>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(profileSchema) }} />
     </>
   );
 }

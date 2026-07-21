@@ -7,26 +7,32 @@ const questions = [
   {
     pillar: "Direction",
     prompt: "I can explain the specific problem my business solves in one clear sentence.",
+    move: "Write one sentence that names the person, the costly problem and the change you help create.",
   },
   {
     pillar: "Offer",
     prompt: "My offer is focused enough that the right client quickly understands why it is for them.",
+    move: "Remove one audience, promise or feature that makes the offer harder to recognise.",
   },
   {
     pillar: "Evidence",
     prompt: "I regularly use real conversations, sales signals or client feedback to guide decisions.",
+    move: "Choose one assumption and test it in five real customer conversations this week.",
   },
   {
     pillar: "Alignment",
     prompt: "The way I am building the business fits my values, strengths and definition of success.",
+    move: "Name the one success condition the business must protect, even as it grows.",
   },
   {
     pillar: "Focus",
     prompt: "My calendar protects the few priorities that matter instead of reacting to everything.",
+    move: "Turn the most commercially meaningful outcome into protected time before the week fills up.",
   },
   {
     pillar: "Momentum",
     prompt: "I know the next meaningful move and can make it within the next seven days.",
+    move: "Reduce the next move until it can be completed, observed and learned from within seven days.",
   },
 ];
 
@@ -82,6 +88,11 @@ export function ClarityAudit() {
 
   if (complete) {
     const percentage = Math.round((score / (questions.length * 5)) * 100);
+    const pathway = ["Direction", "Offer", "Evidence"].includes(weakest?.pillar ?? "")
+      ? { href: "/coaching", label: "Explore the matched coaching path" }
+      : ["Focus", "Momentum"].includes(weakest?.pillar ?? "")
+        ? { href: "/tools/focus-planner", label: "Build your focus map" }
+        : { href: "/approach", label: "Explore the Red Thread method" };
     return (
       <section className="audit audit-result" aria-live="polite">
         <div className="audit-score">
@@ -95,10 +106,20 @@ export function ClarityAudit() {
           <div className="result-focus">
             <small>YOUR LEVER</small>
             <strong>{weakest?.pillar}</strong>
-            <p>{result.move}</p>
+            <p>{weakest?.move ?? result.move}</p>
+          </div>
+          <div className="audit-focus-map" aria-label="Your clarity map">
+            {questions.map((item, index) => (
+              <div key={item.pillar}>
+                <span>{item.pillar}</span>
+                <i><b style={{ width: `${((answers[index] ?? 0) / 5) * 100}%` }} /></i>
+                <small>{answers[index]}/5</small>
+              </div>
+            ))}
           </div>
           <div className="audit-actions">
-            <Link className="button button-dark" href="/contact">Build your consultation brief <span aria-hidden="true">NE</span></Link>
+            <Link className="button button-dark" href={pathway.href}>{pathway.label} <span aria-hidden="true">↗</span></Link>
+            <Link className="text-button" href="/contact">Prepare a consultation brief</Link>
             <button className="text-button" type="button" onClick={restart}>Retake the audit</button>
           </div>
         </div>
@@ -114,7 +135,7 @@ export function ClarityAudit() {
         <div className="progress-track"><span style={{ width: ((step + 1) / questions.length) * 100 + "%" }} /></div>
         <strong>{question.pillar}</strong>
       </div>
-      <div className="audit-question">
+      <div className="audit-question" key={step}>
         <p className="kicker">Choose the answer that is true today</p>
         <h2>{question.prompt}</h2>
         <div className="answer-scale">
@@ -125,6 +146,7 @@ export function ClarityAudit() {
             </button>
           ))}
         </div>
+        {step > 0 ? <button className="audit-back" type="button" onClick={() => setStep((current) => current - 1)}>← Previous question</button> : null}
       </div>
     </section>
   );

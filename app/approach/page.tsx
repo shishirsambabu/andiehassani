@@ -68,6 +68,7 @@ export default function ApproachPage() {
           <div><span>MATCH</span><h3>Work with your energy</h3><p>Put strategy, creation and difficult decisions where your attention is naturally strongest.</p><small>Question: when can I do this well?</small></div>
           <div><span>MOVE</span><h3>Protect the outcome</h3><p>Choose one to three weekly outcomes, schedule them and leave enough buffer for the unexpected.</p><small>Question: where will this happen?</small></div>
         </div>
+        <Link className="action-link action-link-on-dark" href="/tools/focus-planner">Use the interactive planner <span>↗</span></Link>
       </section>
 
       <section className="reboot-system">
@@ -93,7 +94,7 @@ export default function ApproachPage() {
       <section className="inline-cta">
         <p className="kicker">See the method applied to your business</p>
         <h2>Start with six honest answers.</h2>
-        <Link className="button button-red" href="/clarity-audit">Take the clarity audit <span aria-hidden="true">NE</span></Link>
+        <Link className="button button-red" href="/clarity-audit">Take the clarity audit <span aria-hidden="true">↗</span></Link>
       </section>
     </>
   );

@@ -39,22 +39,37 @@ export default async function InsightPage({ params }: InsightPageProps) {
   const related = insights.filter((item) => item.slug !== insight.slug).slice(0, 2);
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: insight.title,
-    description: insight.excerpt,
-    datePublished: insight.publishedAt,
-    dateModified: insight.publishedAt,
-    author: { "@type": "Person", name: "Andie Hassani", url: SITE_URL + "/about" },
-    publisher: { "@type": "Organization", name: "Andie Hassani Business Coaching", url: SITE_URL },
-    mainEntityOfPage: SITE_URL + "/insights/" + insight.slug,
-    image: SITE_URL + "/og.png",
+    "@graph": [
+      {
+        "@type": "Article",
+        "@id": `${SITE_URL}/insights/${insight.slug}#article`,
+        headline: insight.title,
+        description: insight.excerpt,
+        datePublished: insight.publishedAt,
+        dateModified: insight.publishedAt,
+        author: { "@id": SITE_URL + "/#andie" },
+        publisher: { "@id": SITE_URL + "/#business" },
+        mainEntityOfPage: SITE_URL + "/insights/" + insight.slug,
+        isPartOf: { "@id": SITE_URL + "/#website" },
+        image: SITE_URL + "/opengraph-image",
+        inLanguage: "en-GB",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Field notes", item: SITE_URL + "/insights" },
+          { "@type": "ListItem", position: 3, name: insight.title, item: SITE_URL + "/insights/" + insight.slug },
+        ],
+      },
+    ],
   };
 
   return (
     <>
       <article className="article-page">
         <header className="article-header">
-          <Link className="article-back" href="/insights">NW All field notes</Link>
+          <Link className="article-back" href="/insights">← All field notes</Link>
           <div className="article-number">{insight.number}</div>
           <p className="kicker">{insight.category} / {insight.readingTime}</p>
           <h1>{insight.title}</h1>
@@ -83,7 +98,7 @@ export default async function InsightPage({ params }: InsightPageProps) {
         <p className="section-index">CONTINUE READING / 02</p>
         {related.map((item) => (
           <Link href={"/insights/" + item.slug} key={item.slug}>
-            <span>{item.number}</span><small>{item.category}</small><strong>{item.title}</strong><b>NE</b>
+            <span>{item.number}</span><small>{item.category}</small><strong>{item.title}</strong><b>↗</b>
           </Link>
         ))}
       </section>
