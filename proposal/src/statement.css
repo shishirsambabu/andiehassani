@@ -189,3 +189,32 @@ p.body + p.body{ margin-top:4.5mm; }
   padding:5mm 6mm; margin-top:6mm;
 }
 .note-strip p{ font-family:'Editorial'; font-style:italic; font-size:10pt; line-height:1.55; color:#2a251f; }
+
+/* ---------- cover: proposed-concept line ---------- */
+.cover-concept{
+  margin-top:7mm; padding-top:5mm; border-top:1px solid var(--line);
+  display:flex; align-items:baseline; gap:6mm;
+}
+.cover-concept .lab{ font-family:'Mono'; font-size:7.4pt; letter-spacing:.28em; text-transform:uppercase; color:var(--signal); white-space:nowrap; }
+.cover-concept .cv{ font-family:'Editorial'; font-style:italic; font-size:11.5pt; color:var(--ink); }
+
+/* ---------- creative idea page ---------- */
+.statement-lead{
+  font-family:'Editorial'; font-size:17pt; line-height:1.28; color:var(--ink);
+  margin:5mm 0 4mm; max-width:168mm;
+}
+.worktitle{
+  display:inline-flex; align-items:baseline; gap:5mm; margin-top:5mm;
+  border:1px solid var(--line); border-left:3px solid var(--signal); padding:3mm 6mm;
+}
+.worktitle .wl{ font-family:'Mono'; font-size:7pt; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+.worktitle .wv{ font-family:'Editorial'; font-style:italic; font-size:12.5pt; color:var(--ink); }
+.two-col{ display:grid; grid-template-columns:1.05fr 1fr; gap:11mm; }
+.body.sm{ font-size:10pt; line-height:1.55; }
+.col-h{ font-family:'Mono'; font-size:7.6pt; letter-spacing:.22em; text-transform:uppercase; color:var(--signal); margin-bottom:4mm; }
+.concept-list{ list-style:none; }
+.concept-list li{
+  font-family:'Editorial'; font-size:9.6pt; line-height:1.42; color:#2a251f;
+  padding-left:6mm; position:relative; margin-bottom:2.4mm;
+}
+.concept-list li::before{ content:''; position:absolute; left:0; top:2.8mm; width:3.4mm; height:1.4px; background:var(--signal); }
