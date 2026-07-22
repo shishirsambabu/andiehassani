@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ExperienceLayer } from "@/components/experience-layer";
-import { ScrollNeedle } from "@/components/scroll-needle";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import "./studio.css";
@@ -94,7 +93,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <ExperienceLayer />
-        <ScrollNeedle />
         <SiteHeader />
         <main id="main-content">{children}</main>
         <SiteFooter />

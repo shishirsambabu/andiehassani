@@ -17,7 +17,7 @@ export function ThreadField() {
     let phase = 0;
     let frame = 0;
     let visible = true;
-    const pointer = { x: 0.68, y: 0.34, targetX: 0.68, targetY: 0.34 };
+    const pointer = { x: .62, y: .42, targetX: .62, targetY: .42 };
 
     function resize() {
       const bounds = canvas!.getBoundingClientRect();
@@ -30,66 +30,88 @@ export function ThreadField() {
       if (reduceMotion) draw();
     }
 
+    function trace(offsetX = 0, offsetY = 0) {
+      const breathe = Math.sin(phase) * height * .012;
+      const pullX = (pointer.x - .62) * width * .1;
+      const pullY = (pointer.y - .42) * height * .14;
+      context!.beginPath();
+      context!.moveTo(-30, height * .56 + breathe + offsetY);
+      context!.bezierCurveTo(
+        width * .16, height * .45 + offsetY,
+        width * .32, height * .62 + breathe + offsetY,
+        width * .5 + offsetX, height * .5 + offsetY,
+      );
+      context!.bezierCurveTo(
+        width * .62 + pullX, height * .34 + pullY + offsetY,
+        width * .82 + pullX, height * .3 + pullY + offsetY,
+        width * .77 + pullX, height * .5 + offsetY,
+      );
+      context!.bezierCurveTo(
+        width * .73 + pullX, height * .68 + pullY + offsetY,
+        width * .54 + pullX, height * .66 + pullY + offsetY,
+        width * .59 + pullX, height * .49 + offsetY,
+      );
+      context!.bezierCurveTo(
+        width * .65 + pullX, height * .3 + pullY + offsetY,
+        width * .88, height * .42 + breathe + offsetY,
+        width + 30, height * .55 + offsetY,
+      );
+    }
+
     function draw() {
       context!.clearRect(0, 0, width, height);
-      pointer.x += (pointer.targetX - pointer.x) * 0.055;
-      pointer.y += (pointer.targetY - pointer.y) * 0.055;
-
-      const nodes = Array.from({ length: 8 }, (_, index) => {
-        const ratio = index / 7;
-        const distance = Math.abs(ratio - pointer.x);
-        const influence = Math.max(0, 1 - distance * 3.4);
-        const wave = Math.sin(phase + index * 1.18) * height * 0.045;
-        const editorialStep = index % 2 === 0 ? -height * 0.035 : height * 0.022;
-        const pointerPull = (pointer.y * height - height * 0.47) * influence * 0.42;
-        return { x: ratio * width, y: height * 0.48 + wave + editorialStep + pointerPull };
-      });
-
-      const trace = () => {
-        context!.beginPath();
-        context!.moveTo(nodes[0].x - 20, nodes[0].y);
-        for (let index = 0; index < nodes.length - 1; index += 1) {
-          const current = nodes[index];
-          const next = nodes[index + 1];
-          context!.quadraticCurveTo(current.x, current.y, (current.x + next.x) / 2, (current.y + next.y) / 2);
-        }
-        context!.lineTo(width + 20, nodes.at(-1)!.y);
-      };
+      pointer.x += (pointer.targetX - pointer.x) * .045;
+      pointer.y += (pointer.targetY - pointer.y) * .045;
 
       context!.save();
       context!.lineCap = "round";
       context!.lineJoin = "round";
-      trace();
-      context!.strokeStyle = "rgba(197, 22, 42, 0.08)";
-      context!.lineWidth = 30;
-      context!.stroke();
-      trace();
-      context!.strokeStyle = "rgba(197, 22, 42, 0.22)";
-      context!.lineWidth = 9;
-      context!.stroke();
-      trace();
-      context!.strokeStyle = "#c5162a";
-      context!.lineWidth = 2.2;
+
+      trace(2, 3);
+      context!.strokeStyle = "rgba(10,10,10,.13)";
+      context!.shadowColor = "rgba(10,10,10,.16)";
+      context!.shadowBlur = 8;
+      context!.lineWidth = 7;
       context!.stroke();
 
-      nodes.slice(1, -1).forEach((node, index) => {
-        const pulse = 3.2 + Math.sin(phase * 1.8 + index) * 1.2;
-        context!.beginPath();
-        context!.arc(node.x, node.y, pulse, 0, Math.PI * 2);
-        context!.fillStyle = index === 4 ? "#0a0a0a" : "#c5162a";
-        context!.fill();
-        context!.beginPath();
-        context!.arc(node.x, node.y, pulse + 7, 0, Math.PI * 2);
-        context!.strokeStyle = "rgba(197, 22, 42, 0.22)";
-        context!.lineWidth = 1;
-        context!.stroke();
-      });
+      trace();
+      context!.shadowColor = "transparent";
+      context!.strokeStyle = "rgba(246,240,232,.8)";
+      context!.lineWidth = 5;
+      context!.stroke();
+
+      trace();
+      context!.strokeStyle = "#c5162a";
+      context!.shadowColor = "rgba(197,22,42,.38)";
+      context!.shadowBlur = 8;
+      context!.lineWidth = 2.35;
+      context!.stroke();
+
+      trace(-.65, -.35);
+      context!.shadowColor = "transparent";
+      context!.strokeStyle = "rgba(255,139,151,.9)";
+      context!.lineWidth = .55;
+      context!.stroke();
+
+      const knotX = width * .59 + (pointer.x - .62) * width * .1;
+      const knotY = height * .49;
+      context!.beginPath();
+      context!.arc(knotX, knotY, 4.2, 0, Math.PI * 2);
+      context!.fillStyle = "#c5162a";
+      context!.shadowColor = "rgba(197,22,42,.65)";
+      context!.shadowBlur = 14;
+      context!.fill();
+      context!.beginPath();
+      context!.arc(knotX, knotY, 10 + Math.sin(phase * 1.4) * 1.5, 0, Math.PI * 2);
+      context!.strokeStyle = "rgba(197,22,42,.22)";
+      context!.lineWidth = 1;
+      context!.stroke();
       context!.restore();
     }
 
     function animate() {
       if (!visible) return;
-      phase += 0.012;
+      phase += .008;
       draw();
       frame = window.requestAnimationFrame(animate);
     }
@@ -99,12 +121,10 @@ export function ThreadField() {
       pointer.targetX = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
       pointer.targetY = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
     };
-
     const leave = () => {
-      pointer.targetX = 0.68;
-      pointer.targetY = 0.34;
+      pointer.targetX = .62;
+      pointer.targetY = .42;
     };
-
     const resizeObserver = new ResizeObserver(resize);
     const visibilityObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
