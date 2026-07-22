@@ -10,7 +10,7 @@ Oswald display, Fraunces serif).
 
 1. **Cover** — a plain statement of intent, not a cold quote.
 2. **A note before the numbers** — how this began: a LinkedIn post → the profile →
-   no website → a site built first, then the invoice.
+   her existing website → a reimagining built first, then the invoice.
 3. **What the fee is for** — the real scope (25 routes, ~9.7k lines of code, 5 custom
    motion systems, SEO / AI-search infrastructure).
 4. **Why it costs what it costs** — an itemised breakdown of studio value.
